@@ -1,58 +1,76 @@
+
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
 import { connect } from 'react-redux'
-import * as traerUsuarios  from '../../actions/usuariosActions'
+import Spinner from '../General/Spinner';
+import Fatal from '../General/Fatal';
+import * as traerUsuarios from '../../actions/usuariosActions'
 class Usuarios extends Component {
 
 
-	 componentDidMount(){
+	componentDidMount() {
 		this.props.traerUsuarios()
 	}
-
 	ponerFilas = () => this.props.usuarios.map((usuario) => (
-		<tr key={ usuario.id }>
+		<tr key={usuario.id}>
 			<td>
-				{ usuario.name }
+				{usuario.name}
 			</td>
 			<td>
-				{ usuario.email }
+				{usuario.email}
 			</td>
 			<td>
-				{ usuario.website }
+				{usuario.website}
 			</td>
 		</tr>
 	));
-	
 
-	render() {
-		console.log(this.props)
+	ponerContenido = () => {
+		if (this.props.loading) {
+			return <Spinner />;
+		}
+
+		if (this.props.error) {
+			return <Fatal mensaje={this.props.error} />;
+		}
+
 		return (
+		
 			<div className="margen">
 				<Table>
 					<thead>
 						<tr>
 							<th>
 								Nombre
-							</th>
+						</th>
 							<th>
 								Correo
-							</th>
+						</th>
 							<th>
 								Enlace
-							</th>
+						</th>
 						</tr>
 					</thead>
 					<tbody>
-						{ this.ponerFilas() }
+						{this.ponerFilas()}
 					</tbody>
 				</Table>
 			</div>
 		)
-	}
-};
+	};
 
+	
+
+	render() {
+		return (
+			<div>
+				{this.ponerContenido()}
+			</div>
+		)
+	}
+}
 const mapStateToProps = (reducers) => {
 	return reducers.usuariosReducer;
 };
 
-export default connect(mapStateToProps,traerUsuarios)(Usuarios);
+export default connect(mapStateToProps, traerUsuarios)(Usuarios);
