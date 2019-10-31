@@ -1,0 +1,3 @@
+export const TRAER_PUBLICACIONES = 'TRAER_PUBLICACIONES'
+export const LOADING = 'LOADING_PUBLICACIONES';
+export const ERROR = 'ERROR';

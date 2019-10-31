@@ -1,4 +1,4 @@
-import { TRAER_USUARIOS, LOADING, ERROR } from '../type/usuariosType'
+import { TRAER_USUARIOS, LOADING, ERROR } from '../types/usuariosType'
 
 const INITIAL_STATE = {
 	usuarios: [], //comenzamos con el estado inicial

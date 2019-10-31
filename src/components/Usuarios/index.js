@@ -5,13 +5,15 @@ import { connect } from 'react-redux'
 import Spinner from '../General/Spinner';
 import Fatal from '../General/Fatal';
 import * as traerUsuarios from '../../actions/usuariosActions'
+import Eye from '../../assets/img/remove_red_eye-24px.svg'
+import { Link } from 'react-router-dom'
 class Usuarios extends Component {
 
 
 	componentDidMount() {
 		this.props.traerUsuarios()
 	}
-	ponerFilas = () => this.props.usuarios.map((usuario) => (
+	ponerFilas = () => this.props.usuarios.map((usuario,key) => (
 		<tr key={usuario.id}>
 			<td>
 				{usuario.name}
@@ -21,6 +23,9 @@ class Usuarios extends Component {
 			</td>
 			<td>
 				{usuario.website}
+			</td>
+			<td>
+				<Link to={`publicaciones/${key}`}><img alt="eye" src={Eye} /></Link>
 			</td>
 		</tr>
 	));

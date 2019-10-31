@@ -1,4 +1,4 @@
-import { TRAER_USUARIOS, LOADING, ERROR } from '../type/usuariosType'
+import { TRAER_USUARIOS, LOADING, ERROR } from '../types/usuariosType'
 export const traerUsuarios = () => async (dispatch) => {
 	dispatch({
 		type: LOADING
@@ -15,7 +15,8 @@ export const traerUsuarios = () => async (dispatch) => {
 		const resp = await data.json()
 		dispatch({
 			type: TRAER_USUARIOS,// este seria el type que declaramos en el reducers para enviar el payload
-			payload: resp
+			payload: resp,
+			error: ''
 		})
 	} catch (err) {
 		dispatch({
