@@ -11,7 +11,9 @@ class Usuarios extends Component {
 
 
 	componentDidMount() {
-		this.props.traerUsuarios()
+		if (!this.props.usuarios.length) {
+			this.props.traerUsuarios()
+		}
 	}
 	ponerFilas = () => this.props.usuarios.map((usuario,key) => (
 		<tr key={usuario.id}>
@@ -67,6 +69,7 @@ class Usuarios extends Component {
 	
 
 	render() {
+		
 		return (
 			<div>
 				{this.ponerContenido()}
