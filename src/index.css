@@ -2,6 +2,9 @@
 	margin: 100px;
 }
 
+.overflowScroll{
+	overflow-x: scroll;
+}
 .tabla {
 	width: 100%;
 	text-align: left;

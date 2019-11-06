@@ -4,7 +4,9 @@ import * as usuariosActions from '../../actions/usuariosActions';
 import * as publicacionesActions from '../../actions/publicacionesActions'
 import Spinner from '../General/Spinner';
 import Fatal from '../General/Fatal';
-const { traerPorUsuario: publicacionesTraerPorUsuario } = publicacionesActions;
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import Comentarios from './Comentarios'
+const { traerPorUsuario: publicacionesTraerPorUsuario,abrirCerrar,traerComentarios } = publicacionesActions;
 const { traerUsuarios } = usuariosActions;
 
 
@@ -47,9 +49,9 @@ class Publicaciones extends Component {
         const nombre = usuariosReducer.usuarios[id].name;
 
         return (
-            <h1>
+            <h3>
                 Publicaciones de {nombre}
-            </h1>
+            </h3>
         );
     };
 
@@ -76,25 +78,39 @@ class Publicaciones extends Component {
 
         if (!('publicaciones_key' in usuarios[id])) return;
         const { publicaciones_key } = usuarios[id];
-        return publicaciones[publicaciones_key].map(publicacion => (
-            <div
-                key={publicacion.id}
-
-            >
-                <h2>
-                    {publicacion.title}
-                </h2>
-                <h3>
-                    {publicacion.body}
-                </h3>
-            </div>
-        ))
-
-
+        return this.mostrarInfo(
+            publicaciones[publicaciones_key],
+            publicaciones_key
+        )
     }
+
+    mostrarInfo = (publicaciones,publicaciones_key) =>(
+        publicaciones.map((publicacion,comment_key) => (
+            <ListGroup
+                key={publicacion.id}
+                onClick={() => this.mostrarComentarios(publicaciones_key,comment_key,publicacion.comentarios)}
+            >
+                <ListGroupItem>
+                    <h4>
+                        {publicacion.title}
+                    </h4>
+                    <p>
+                        {publicacion.body}
+                    </p>
+                    { (publicacion.abierto) ? <Comentarios comentarios={publicacion.comentarios} /> : '' }
+                </ListGroupItem>
+            </ListGroup>
+        ))
+    )
+    
+    mostrarComentarios = (pub_key, com_key, comentarios) => {
+		this.props.abrirCerrar(pub_key, com_key)
+		if (!comentarios.length) {
+			this.props.traerComentarios(pub_key, com_key)
+		}
+	};
     render() {
-
-
+         
         return (
             <Fragment>
                 {this.ponerUsuario()}
@@ -113,7 +129,9 @@ const mapStateToProps = ({ publicacionesReducer, usuariosReducer }) => {
 
 const mapDispatchToProps = {
     traerUsuarios,
-    publicacionesTraerPorUsuario
+    publicacionesTraerPorUsuario,
+    abrirCerrar,
+	traerComentarios
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Publicaciones)

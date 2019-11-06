@@ -1,16 +1,36 @@
-import { TRAER_PUBLICACION_POR_USUARIO } from '../types/publicacionesType';
+import { ACTUALIZAR, LOADING, COM_LOADING, COM_ERROR, COM_ACTUALIZAR } from '../types/publicacionesType';
 
 const INITIAL_STATE = {
 	publicaciones: [],
 	loading: false,
-	error: ''
+	error: '',
+	com_loading: false,
+	com_error: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case TRAER_PUBLICACION_POR_USUARIO:
-			return { ...state, publicaciones: action.payload };
+		case ACTUALIZAR:
+			return { ...state, publicaciones: action.payload, loading: false };
+
+		case LOADING:
+			return { ...state, loading: true }
+
+		case COM_ACTUALIZAR:
+			return {
+				...state,
+				publicaciones: action.payload,
+				com_loading: false,
+				com_error: ''
+			};
+
+		case COM_LOADING:
+			return { ...state, com_loading: true };
+
+		case COM_ERROR:
+			return { ...state, com_error: action.payload, com_loading: false };
 
 		default: return state;
 	};
+
 };

@@ -43,7 +43,7 @@ class Usuarios extends Component {
 
 		return (
 		
-			<div className="margen">
+			<div className="overflowScroll">
 				<Table>
 					<thead>
 						<tr>
