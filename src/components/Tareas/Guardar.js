@@ -15,7 +15,8 @@ class Guardar extends Component {
 			match: { params: { user_id, tarea_id } },
 			tareas,
 			cambioUsuario,
-			cambioTareaTitulo
+            cambioTareaTitulo,
+            limpiarForm
         } = this.props;
         
 		if (user_id && tarea_id && !!(Object.keys(tareas).length)) {
@@ -24,7 +25,9 @@ class Guardar extends Component {
            
 			cambioUsuario(tarea.userId);
 			cambioTareaTitulo(tarea.title);
-		}
+		}else{
+            limpiarForm();
+        }
 	}
     handleSubmit = (event) => {
         event.preventDefault()

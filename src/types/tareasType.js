@@ -5,4 +5,5 @@ export const CAMBIO_USUARIO_ID = 'CAMBIO_USUARIO_ID';
 export const TAREA_TITULO = 'TAREA_TITULO';
 export const GUARDADA = 'GUARDADA';
 export const LOADING_BTN = 'LOADING_BTN';
-export const ACTUALIZAR = 'ACTUALIZAR'
+export const ACTUALIZAR = 'ACTUALIZAR';
+export const LIMPIAR = 'LIMPIAR';

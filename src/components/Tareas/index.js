@@ -7,10 +7,20 @@ import { Button, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom'
 class Tareas extends Component {
 	componentDidMount() {
+		
 		if (!Object.keys(this.props.tareas).length) {
 			this.props.traerTodas();
 		}
 
+	}
+	componentDidUpdate() {
+		const { tareas, loading, traerTodas } = this.props;
+		
+		
+		if (!Object.keys(tareas).length && !loading){
+			traerTodas();
+		}
+		 
 	}
 
 
@@ -27,27 +37,27 @@ class Tareas extends Component {
 		return Object.keys(tareas).map(usu_id => (
 			<Row key={usu_id}>
 				<h4>Usuario {usu_id}</h4>
-				{this.mostrarTareas(usu_id)}				
+				{this.mostrarTareas(usu_id)}
 			</Row>
 		))
 	}
 	mostrarTareas = (usu_id) => {
-		const { tareas, cambioCheck } = this.props;
+		const { tareas, cambioCheck, elimiarTarea } = this.props;
 		const por_usuario = {
 			...tareas[usu_id]
 		}
 
 		return Object.keys(por_usuario).map((tar_id) => (
-			<Col md="12" key={tar_id} style={{padding: '5px'}}>
+			<Col md="12" key={tar_id} style={{ padding: '5px' }}>
 				<input type='checkbox'
-					onChange={() => cambioCheck(usu_id,tar_id)}
+					onChange={() => cambioCheck(usu_id, tar_id)}
 					defaultChecked={por_usuario[tar_id].completed}
 				/>
 				{por_usuario[tar_id].title}
-				<Link to={ `/tareas/guardar/${usu_id}/${tar_id}` }>
-					<Button color="info" size="sm" style={{marginLeft: '25px'}}>Editar</Button>
-				</Link>		
-				<Button color="danger" size="sm" style={{marginLeft: '25px'}}>Eliminar</Button>			
+				<Link to={`/tareas/guardar/${usu_id}/${tar_id}`}>
+					<Button color="info" size="sm" style={{ marginLeft: '25px' }}>Editar</Button>
+				</Link>
+				<Button onClick={() => elimiarTarea(tar_id)} color="danger" size="sm" style={{ marginLeft: '25px' }}>Eliminar</Button>
 			</Col>
 		));
 
