@@ -28,7 +28,7 @@ class Menu extends Component {
         return (
             < div >
                 <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/">CASA</NavbarBrand>
+                    <NavbarBrand href="/usuarios">CASA</NavbarBrand>
                     <NavbarToggler onClick={() => this.handleStateMenu(!this.state.isOpen)} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
